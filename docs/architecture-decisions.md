@@ -32,3 +32,14 @@ The backend will use Java with Spring Boot.
 ### Reason
 
 Java and Spring Boot are common in backend development and are useful technologies for internship opportunities, especially in enterprise environments.
+
+## Decision 004: Use a REST JSON API between frontend and backend
+
+The frontend and backend will communicate over HTTP using JSON responses.
+
+### Reason
+This keeps the first integration simple and matches how many real web applications separate frontend and backend development.
+
+## Decision 005: Store frontend API base URL in environment configuration
+
+The frontend should not hardcode the backend URL directly inside UI components.

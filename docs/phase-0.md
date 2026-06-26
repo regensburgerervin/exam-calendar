@@ -1,4 +1,5 @@
 # Phase 0 - Project Setup
+# Status: Completed
 
 ## Goal
 
