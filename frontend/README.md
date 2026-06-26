@@ -9,4 +9,4 @@ The frontend displays the user interface and communicates with the backend API.
 The frontend runs separately from the backend during development.
 
 ## API Configuration
-The frontend expects the backend API base URL to be configured through a Vite environment variable.
+The frontend reads the backend API URL from VITE_API_BASE_URL and uses it to call the backend health endpoint.

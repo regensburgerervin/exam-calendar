@@ -1,4 +1,5 @@
 # Phase 1 - Backend and Frontend Connection
+# Status: Completed
 
 ## Goal
 Connect the React frontend to the Spring Boot backend through a simple REST API.

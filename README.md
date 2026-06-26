@@ -14,6 +14,7 @@ This project explores how a web application could collect, process, and export t
  - Version Control: Git, GitHub
 
 ## Current Phase
+Current status: Phase 1 completed
 Phase 1: backend–frontend connection.
 
 The goal of Phase 1 is to prove that the React frontend can communicate with the Spring Boot backend through a simple REST API.
