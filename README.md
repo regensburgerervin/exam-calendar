@@ -14,12 +14,17 @@ This project explores how a web application could collect, process, and export t
  - Version Control: Git, GitHub
 
 ## Current Phase
-Phase 0: project setup and planning.
+Current status: Phase 1 completed
+Phase 1: backend–frontend connection.
 
-The goal of this phase is to create the repository structure, document the project idea, and prepare separate frontend and backend applications.
+The goal of Phase 1 is to prove that the React frontend can communicate with the Spring Boot backend through a simple REST API.
+
+## Run
+Backend runs on: http://localhost:8080
+Frontend runs on: http://localhost:5173
+Phase 1 API target: GET /api/health
 
 ## Project Structure
-Planned structure:
  - `frontend/` - React TypeScript frontend
  - `backend/` - Java Spring Boot backend
  - `docs/` - project notes and planning documents
