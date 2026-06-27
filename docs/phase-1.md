@@ -23,3 +23,10 @@ Expected response:
 - Frontend starts locally.
 - Frontend displays data received from the backend.
 - Frontend shows an understandable error if the backend is not running.
+
+## Additional work completed after Phase 1 goal
+ - in-memory exam list added
+ - exam creation endpoint added
+ - frontend exam form added
+ - frontend exam list added
+ - data is not persistent yet

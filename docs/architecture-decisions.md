@@ -43,3 +43,12 @@ This keeps the first integration simple and matches how many real web applicatio
 ## Decision 005: Store frontend API base URL in environment configuration
 
 The frontend should not hardcode the backend URL directly inside UI components.
+
+## Decision 006: Use PostgreSQL as the main application database
+It is a widely used relational database in professional backend development, so using it makes the project more realistic and valuable from a learning and portfolio perspective. A relational database also fits the current exam data model well, because exams have clear structured fields such as course code, course name, date, location, faculty, and source URL.
+
+## Decision 007: Use Spring Data JPA for Database access
+Spring Data JPA was chosen because it integrates naturally with Spring Boot and reduces the amount of manual database access code needed for basic CRUD operations. It allows the backend to work with Java objects while still storing the data in a relational database. This keeps the service layer focused on application logic instead of low-level SQL handling, which is appropriate for the current stage of the project.
+
+## Decision 008: Use database migrations
+Database migrations were chosen to make database changes explicit, repeatable, and version-controlled. As the project grows, the database schema will likely change, for example when new fields or tables are added. Using migrations helps avoid undocumented manual database changes and makes it easier to recreate the same database structure on another machine or in a future deployment environment.
