@@ -2,54 +2,52 @@ package hu.regensburger.examcalendar.exam;
 
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class ExamService {
-    private final List<ExamResponse> exams = new ArrayList<>(
-        List.of(
-                new ExamResponse(
-                        1L,
-                        "BMEVIAUAC03",
-                        "Software Engineering",
-                        "2026-01-10T10:00:00",
-                        "IB028",
-                        "VIK",
-                        null
-                ),
-                new ExamResponse(
-                        2L,
-                        "BMEVISZAA00",
-                        "Databases",
-                        "2026-01-15T14:00:00",
-                        "QBF13",
-                        "VIK",
-                        null
-                )
-        )
-);
+    private final ExamRepository examRepository;
 
-    private final AtomicLong nextId = new AtomicLong(3L);
-
-    public List<ExamResponse> getAllExams() {
-        return exams;
+    public ExamService(ExamRepository examRepository) {
+        this.examRepository = examRepository;
     }
 
-    public ExamResponse createExam(CreateExamRequest request) {
-        ExamResponse examFromRequest = new ExamResponse(
-                nextId.getAndIncrement(),
+    private Exam toEntity(CreateExamRequest request) {
+        return new Exam(
                 request.courseCode(),
                 request.courseName(),
-                request.examDateTime(),
+                LocalDateTime.parse(request.examDateTime()),
                 request.location(),
                 request.faculty(),
                 request.sourceUrl()
         );
+    }
 
-        exams.add(examFromRequest);
+    private ExamResponse toResponse(Exam exam) {
+        return new ExamResponse(
+                exam.getId(),
+                exam.getCourseCode(),
+                exam.getCourseName(),
+                exam.getExamDateTime().toString(),
+                exam.getLocation(),
+                exam.getFaculty(),
+                exam.getSourceUrl()
+        );
+    }
 
-        return examFromRequest;
+    public List<ExamResponse> getAllExams() {
+        return examRepository.findAll()
+                .stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
+    public ExamResponse createExam(CreateExamRequest request) {
+        Exam exam = toEntity(request);
+        Exam savedExam = examRepository.save(exam);
+        return toResponse(savedExam);
     }
 }
