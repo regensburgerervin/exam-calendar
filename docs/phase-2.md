@@ -1,14 +1,23 @@
 # Phase 2 - Persistent exam storage
+# Status: Completed
 
 ## Goal
 Replace temporary in-memory exam storage with persistent database storage
 
 ## Scope
- - Add database support to the Spring Boot backend.
- - Store created exams permanently.
- - Load exams from the database on backend startup.
- - Keep the existing frontend API contract stable.
- - Add basic validation for exam creation.
+
+Phase 2 included:
+
+- Adding PostgreSQL as the local development database
+- Running PostgreSQL with Docker Compose
+- Connecting the Spring Boot backend to PostgreSQL
+- Adding Spring Data JPA
+- Creating an `Exam` JPA entity
+- Creating an `ExamRepository`
+- Refactoring `ExamService` to use the database instead of an in-memory list
+- Adding backend validation for exam creation requests
+- Adding Flyway for database schema migrations
+- Creating the first migration for the `exams` table
 
 ## Definition of Done
  - A created exam remains available after backend restart.

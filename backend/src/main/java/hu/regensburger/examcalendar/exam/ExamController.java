@@ -1,5 +1,6 @@
 package hu.regensburger.examcalendar.exam;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class ExamController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ExamResponse createExam(@RequestBody CreateExamRequest request) {
+    public ExamResponse createExam(@Valid @RequestBody CreateExamRequest request) {
         return service.createExam(request);
     }
 }
