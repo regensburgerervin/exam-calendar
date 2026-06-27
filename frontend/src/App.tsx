@@ -1,88 +1,83 @@
 import { useEffect, useState } from "react";
 
-import { getBackendHealth } from "./api/healthApi";
-import type { HealthResponse } from "./types/health";
+import { createExam, getExams } from "./api/examApi";
+import ExamForm from "./components/ExamForm";
+import ExamList from "./components/ExamList";
+import type { CreateExamRequest, ExamResponse, ExamFormValues } from "./types/exam";
 
 import "./App.css";
 
 function App() {
-    const [health, setHealth] = useState<HealthResponse | null>(null);
+    const [exams, setExams] = useState<ExamResponse[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        async function loadBackendHealth() {
+        async function loadExams() {
             try {
                 setIsLoading(true);
                 setError(null);
 
-                const response = await getBackendHealth();
+                const examsFromBackend = await getExams();
 
-                setHealth(response);
+                setExams(examsFromBackend);
             } catch (error: unknown) {
                 if (error instanceof Error) {
                     setError(error.message);
                 } else {
-                    setError("Unknown error while connecting to backend.");
+                    setError("Unknown error while loading exams.");
                 }
             } finally {
                 setIsLoading(false);
             }
         }
 
-        loadBackendHealth();
-    }, [])
+        loadExams();
+    }, []);
+
+    async function handleCreateExam(formValues: ExamFormValues) {
+        try {
+            const request: CreateExamRequest = {
+                courseCode: formValues.courseCode,
+                courseName: formValues.courseName,
+                examDateTime: formValues.examDateTime,
+                location: formValues.location,
+                faculty: formValues.faculty,
+                sourceUrl: formValues.sourceUrl.trim() === "" ? null : formValues.sourceUrl,
+            };
+
+            const createdExam = await createExam(request);
+
+            setExams((previousExams) => [...previousExams, createdExam]);   
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                setError(error.message);
+            } else {
+                setError("Unknown error while creating exam.");
+            }
+        }
+    }
 
     if (isLoading) {
-        return (
-            <main>
-                <h1>Exam Calendar</h1>
-                <p className="status-message loading">Checking backend connection...</p>
-            </main>
-        );
+        return <p className="app-loading">Loading exams...</p>;
     }
 
     if (error !== null) {
-        return (
-            <main>
-                <h1>Exam Calendar</h1>
-                <p className="status-message error">Could not connect to backend.</p>
-                <p className="error-details">{error}</p>
-            </main>
-        );
-    }
-
-    if (health === null) {
-        return (
-            <main>
-                <h1>Exam Calendar</h1>
-                <p>No backend health data available.</p>
-            </main>
-        );
+        return <p className="app-error">{error}</p>;
     }
 
     return (
-    <main>
-        <h1>Exam Calendar</h1>
+        <main className="app">
+            <section className="app-header">
+                <h1>Exam Calendar</h1>
+                <p>Manage and view university exam dates.</p>
+            </section>
 
-        <section>
-        <h2>Backend connection status</h2>
+            <ExamForm onCreateExam={handleCreateExam} />
 
-        <p className="status-message success">Backend connected.</p>
-
-        <dl>
-            <dt>Status</dt>
-            <dd>{health.status}</dd>
-
-            <dt>Application</dt>
-            <dd>{health.application}</dd>
-
-            <dt>Phase</dt>
-            <dd>{health.phase}</dd>
-        </dl>
-        </section>
-    </main>
-    );
+            <ExamList exams={exams} />
+        </main>
+    )
 }
 
 export default App;
