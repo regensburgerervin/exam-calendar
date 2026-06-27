@@ -15,21 +15,22 @@ public class Exam {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "course_code", nullable = false)
     private String courseCode;
 
-    @Column(nullable = false)
+    @Column(name = "course_name", nullable = false)
     private String courseName;
 
-    @Column(nullable = false)
+    @Column(name = "exam_date_time", nullable = false)
     private LocalDateTime examDateTime;
 
-    @Column(nullable = false)
+    @Column(name = "location", nullable = false)
     private String location;
 
-    @Column(nullable = false)
+    @Column(name = "faculty", nullable = false)
     private String faculty;
 
+    @Column(name = "source_url")
     private String sourceUrl;
 
     protected Exam() {
