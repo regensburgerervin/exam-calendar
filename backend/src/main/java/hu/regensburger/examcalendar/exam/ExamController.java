@@ -22,7 +22,7 @@ public class ExamController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ExamResponse createExam(@RequestBody CreateExamRequest request) {
+    public ExamResponse createExam(@Valid @RequestBody CreateExamRequest request) {
         return service.createExam(request);
     }
 }
