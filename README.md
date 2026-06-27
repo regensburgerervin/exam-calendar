@@ -14,15 +14,7 @@ This project explores how a web application could collect, process, and export t
  - Version Control: Git, GitHub
 
 ## Current Phase
-Current status: Phase 1 completed
-Phase 1: backend–frontend connection.
-
-The goal of Phase 1 is to prove that the React frontend can communicate with the Spring Boot backend through a simple REST API.
-
-## Run
-Backend runs on: http://localhost:8080
-Frontend runs on: http://localhost:5173
-Phase 1 API target: GET /api/health
+Phase 2 - Persistent exam storage
 
 ## Project Structure
  - `frontend/` - React TypeScript frontend
